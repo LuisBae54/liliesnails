@@ -19,13 +19,21 @@ btnGuardar.addEventListener("click", AgregarServicio);
 
 btnExportar.addEventListener("click", descargarMenu);
 
+document.querySelectorAll('input[type="number"]').forEach((input) => {
+  input.addEventListener("keydown", function (e) {
+    if (e.key === "-" || e.key === "e" || e.key === "+") {
+      e.preventDefault();
+    }
+  });
+});
+
 //#region Funciones
 
 //#region  Materiales
 function AgregarMaterial() {
   const nombre = inputNombre.value;
-  const precio = parseFloat(inputPrecio.value);
-  const rinde = parseInt(inputRinde.value);
+  const precio = Math.abs(parseFloat(inputPrecio.value));
+  const rinde = Math.abs(parseInt(inputRinde.value));
   const costoPorUso = precio / rinde;
 
   if (nombre === "" || isNaN(precio) || isNaN(rinde)) {
@@ -59,6 +67,7 @@ function AgregarMaterial() {
 
   limpiarCamposMateriales();
   actualizarTablaInventario();
+  actualizarTablaServicios();
   guardarEnMemoria();
 }
 
@@ -112,6 +121,7 @@ function eliminarMaterial(idRecibida) {
   if (confirm("¿Seguro que quieres eliminar este material?")) {
     listaMateriales = listaMateriales.filter((mat) => mat.id !== idRecibida);
     actualizarTablaInventario();
+    actualizarTablaServicios();
     guardarEnMemoria();
   }
 }
@@ -154,11 +164,12 @@ function limpiarCamposMateriales() {
 //#region  Servicios
 function AgregarServicio() {
   const nombreS = document.getElementById("nombreServicio").value;
-  const gHora = parseFloat(document.getElementById("gananciaHora").value) || 0;
+  const gHora =
+    Math.abs(parseFloat(document.getElementById("gananciaHora").value)) || 0;
   const tiempo =
-    parseFloat(document.getElementById("tiempoTrabajo").value) || 0;
+    Math.abs(parseFloat(document.getElementById("tiempoTrabajo").value)) || 0;
   const margen =
-    parseFloat(document.getElementById("margenDeseado").value) || 0;
+    Math.abs(parseFloat(document.getElementById("margenDeseado").value)) || 0;
 
   if (nombreS === "") {
     alert("Ponle un nombre al servicio");
@@ -175,7 +186,7 @@ function AgregarServicio() {
     materialesSeleccionados.push(Number(check.value));
   });
 
-  const costoBase = costoMateriales + gHora * tiempo;
+  const costoBase = costoMateriales + (gHora / 60) * tiempo;
   const precioFinal = costoBase + costoBase * (margen / 100);
 
   const datosServicio = {
@@ -206,13 +217,15 @@ function AgregarServicio() {
 function actualizarTablaServicios() {
   let contenido = "";
   cuerpoServicios.innerHTML = "";
-  listaServicios.forEach((serv, index) => {
+
+  listaServicios.forEach((serv) => {
+    const precioActualizado = obtenerPrecioFinalDinamico(serv);
+
     contenido += `
             <tr>
                 <td>${serv.nombre}</td>
                 <td>${serv.ganancia}%</td>
-                <td>$${serv.precio}</td>
-                <td>
+                <td>$${precioActualizado}</td> <td>
                 <button class="btn-editar" onclick="editarServicio(${serv.id})">
                     <i class="fa-solid fa-pen"></i>
                 </button>
@@ -239,7 +252,10 @@ function ordenarServicios(criterio) {
     listaServicios.sort((a, b) => a.nombre.localeCompare(b.nombre));
   } else if (criterio === "precio") {
     listaServicios.sort((a, b) => {
-      return parseFloat(b.precio) - parseFloat(a.precio);
+      return (
+        parseFloat(obtenerPrecioFinalDinamico(b)) -
+        parseFloat(obtenerPrecioFinalDinamico(a))
+      );
     });
   } else if (criterio === "fecha") {
     listaServicios.sort((a, b) => b.id - a.id);
@@ -293,6 +309,25 @@ function limpiarCamposServicios() {
   idServicioEditando = null;
   btnGuardar.innerText = "Calcular y Guardar Servicio";
 }
+
+function obtenerPrecioFinalDinamico(serv) {
+  let costoMaterialesActual = 0;
+
+  // Buscamos los materiales por ID para obtener su costo/uso actual
+  if (serv.materialesIds && serv.materialesIds.length > 0) {
+    serv.materialesIds.forEach((id) => {
+      const materialEncontrado = listaMateriales.find((m) => m.id === id);
+      if (materialEncontrado) {
+        costoMaterialesActual += materialEncontrado.costoUso;
+      }
+    });
+  }
+
+  const costoBase = costoMaterialesActual + (serv.gHora / 60) * serv.tiempo;
+  const precioFinal = costoBase + costoBase * (serv.ganancia / 100);
+
+  return precioFinal.toFixed(2);
+}
 //#endregion
 
 //#region  Exportar Menu (TEXTO)
@@ -305,8 +340,10 @@ function descargarMenu() {
   let contenidoTexto = "--- MENÚ DE SERVICIOS DE MANICURA ---\n\n";
 
   listaServicios.forEach((servicio) => {
+    const precioVenta = obtenerPrecioFinalDinamico(servicio);
+
     contenidoTexto += `Servicio: ${servicio.nombre}\n`;
-    contenidoTexto += `Precio Sugerido: $${servicio.precio}\n`;
+    contenidoTexto += `Precio Sugerido: $${precioVenta}\n`;
     contenidoTexto += `--------------------------\n`;
   });
 
@@ -317,7 +354,6 @@ function descargarMenu() {
   enlace.href = URL.createObjectURL(blob);
   enlace.download = "Menu_Servicios.txt";
   enlace.click();
-  URL.revokeObjectURL(enlace.href);
 }
 //#endregion
 

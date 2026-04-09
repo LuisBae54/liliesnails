@@ -44,18 +44,21 @@
           type="number"
           id="gananciaHora"
           value=""
+          min="0"
           placeholder="Ganancia/Hora $"
         />
         <input
           type="number"
           id="tiempoTrabajo"
           value=""
-          step="0.5"
-          placeholder="Horas"
+          min="0"
+          step="30"
+          placeholder="Minutos"
         />
         <input
           type="number"
           id="margenDeseado"
+          min="0"
           value=""
           placeholder="% Ganancia"
         />
@@ -118,8 +121,18 @@
           id="nombreMat"
           placeholder="Material (ej: Top Coat)"
         />
-        <input type="number" id="precioMat" placeholder="Precio pagado ($)" />
-        <input type="number" id="usoMat" placeholder="¿Cuántas veces rinde?" />
+        <input
+          type="number"
+          id="precioMat"
+          min="0"
+          placeholder="Precio pagado ($)"
+        />
+        <input
+          type="number"
+          id="usoMat"
+          min="0"
+          placeholder="¿Cuántas veces rinde?"
+        />
         <button id="btn-agregar" , class="button">Agregar al Inventario</button>
       </div>
       <div class="contenedor-tabla">
