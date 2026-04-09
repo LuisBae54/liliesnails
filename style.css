@@ -319,6 +319,31 @@ label {
     align-items: center;
   }
 
+  .sort-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .sort-container span {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .sort-container button {
+    width: auto !important;
+    flex: 1;
+    max-width: 60px;
+    padding: 10px 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+  }
+
   .seccion-respaldo {
     display: flex;
     flex-direction: column;
@@ -339,6 +364,13 @@ label {
     white-space: nowrap;
     -webkit-overflow-scrolling: touch;
     border-radius: 8px;
+    border: 1px solid #e0e6ed;
+    margin-top: 10px;
+  }
+
+  table {
+    min-width: 500px;
+    font-size: 0.85rem;
   }
 
   #contenedor-checkboxes {

@@ -81,17 +81,19 @@
           <i class="fa-solid fa-calendar-days"></i>
         </button>
       </div>
-      <table id="tabla-servicios">
-        <thead>
-          <tr>
-            <th>Servicio</th>
-            <th>Porcentaje</th>
-            <th>Precio Final</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody id="cuerpo-servicios"></tbody>
-      </table>
+      <div class="contenedor-tabla">
+        <table id="tabla-servicios">
+          <thead>
+            <tr>
+              <th>Servicio</th>
+              <th>Porcentaje</th>
+              <th>Precio Final</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-servicios"></tbody>
+        </table>
+      </div>
       <button id="btn-exportar" class="button">Descargar Menú (.txt)</button>
     </section>
 
@@ -120,19 +122,20 @@
         <input type="number" id="usoMat" placeholder="¿Cuántas veces rinde?" />
         <button id="btn-agregar" , class="button">Agregar al Inventario</button>
       </div>
-
-      <table id="tabla-inventario">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Precio</th>
-            <th>Rinde</th>
-            <th>Costo/Uso</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody id="cuerpo-tabla"></tbody>
-      </table>
+      <div class="contenedor-tabla">
+        <table id="tabla-inventario">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Precio</th>
+              <th>Rinde</th>
+              <th>Costo/Uso</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-tabla"></tbody>
+        </table>
+      </div>
     </section>
     <section>
       <div class="seccion-respaldo">
