@@ -6,6 +6,14 @@ body {
   margin: 20px;
   line-height: 1.6;
 }
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden; /* Corta de lado */
+  margin: 0;
+  padding: 0;
+}
 /*#endregion*/
 
 /*#region Titulos*/
@@ -223,10 +231,19 @@ label {
 
 /*#region Responsive*/
 @media (max-width: 768px) {
-  .contenedor-logo-titulo {
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 10px;
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+  }
+
+  thead,
+  tbody,
+  tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
   }
 
   .logo-tienda {
