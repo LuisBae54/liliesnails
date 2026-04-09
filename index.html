@@ -8,7 +8,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&family=Nunito:wght@700;800&family=Quicksand:wght@400;500;600;700&display=swap"
       rel="stylesheet"
@@ -66,10 +69,23 @@
       </div>
 
       <h3>Lista de Servicios (Menú)</h3>
+      <div class="sort-container">
+        <span>Ordenar por:</span>
+        <button onclick="ordenarServicios('nombre')" title="Alfabético">
+          <i class="fa-solid fa-arrow-down-a-z"></i>
+        </button>
+        <button onclick="ordenarServicios('precio')" title="Por Precio">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </button>
+        <button onclick="ordenarServicios('fecha')" title="Más recientes">
+          <i class="fa-solid fa-calendar-days"></i>
+        </button>
+      </div>
       <table id="tabla-servicios">
         <thead>
           <tr>
             <th>Servicio</th>
+            <th>Porcentaje</th>
             <th>Precio Final</th>
             <th>Acción</th>
           </tr>
@@ -81,6 +97,18 @@
 
     <section id="seccion-inventario">
       <h2>Inventario de Materiales</h2>
+      <div class="sort-container">
+        <span>Ordenar por:</span>
+        <button onclick="ordenarMateriales('nombre')" title="Alfabético">
+          <i class="fa-solid fa-arrow-down-a-z"></i>
+        </button>
+        <button onclick="ordenarMateriales('precio')" title="Por Precio">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+        </button>
+        <button onclick="ordenarMateriales('fecha')" title="Más recientes">
+          <i class="fa-solid fa-calendar-days"></i>
+        </button>
+      </div>
 
       <div class="registro">
         <input
@@ -105,6 +133,21 @@
         </thead>
         <tbody id="cuerpo-tabla"></tbody>
       </table>
+    </section>
+    <section>
+      <div class="seccion-respaldo">
+        <h3>Respaldo de Seguridad</h3>
+        <button onclick="exportarDatos()" class="btn-respaldo">
+          Descargar Respaldo
+        </button>
+        <label for="importarArchivo" class="btn-importar">Subir Respaldo</label>
+        <input
+          type="file"
+          id="importarArchivo"
+          style="display: none"
+          onchange="importarDatos(event)"
+        />
+      </div>
     </section>
     <script src="script.js"></script>
   </body>
