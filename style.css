@@ -140,20 +140,21 @@ input[type="submit"] {
 }
 
 #btn-desplegar-materiales {
-  width: 100%;
-  background-color: #e2effe;
-  color: #4a90e2;
-  border: 2px solid #d1e9ff;
-  border-radius: 10px;
-  padding: 10px 15px;
-  font-family: "Quicksand", sans-serif;
-  font-weight: 700;
-  font-size: 0.95rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #e2effe;
+    color: #4a90e2;
+    border: 2px solid #d1e9ff;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
 }
 
 #btn-desplegar-materiales:hover {
@@ -311,65 +312,54 @@ input:focus {
   border-color: #4a90e2;
 }
 
-.buscador-container input[type="text"]#buscarMaterial, 
-.buscador-servicios-container input[type="text"]#buscarServicio {
-    width: 100%;
-    padding: 8px 12px 8px 42px !important; /* El !important asegura que no lo pise la regla de arriba */
-    border: 1px solid #e2effe;
-    border-radius: 6px;
-    font-size: 14px;
+.buscador-container, 
+.buscador-servicios-container {
+    display: flex;
+    align-items: center;
     background-color: #e2effe;
-    color: #4a90e2;
-    outline: none;
-    transition: all 0.2s ease;
-}
-
-.buscador-container input[type="text"]#buscarMaterial:focus, 
-.buscador-servicios-container input[type="text"]#buscarServicio:focus {
-    background-color: #fff;
-    border-color: #4a90e2;
-    box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
-    color: #333;
-}
-
-.buscador-container, .buscador-servicios-container {
-    position: relative;
+    border: 2px solid #d1e9ff;
+    border-radius: 25px;
+    padding: 0 15px;
     margin: 15px 0;
     width: 100%;
     max-width: 350px;
-}
-
-.buscador-container i, .buscador-servicios-container i {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #4a90e2;
-    opacity: 0.8;
-    pointer-events: none;
-    font-size: 14px;
-}
-
-input[type="text"]#buscarMaterial, 
-input[type="text"]#buscarServicio {
-    width: 100%;
-    padding: 8px 12px 8px 42px;
-    border: 1px solid #e2effe;
-    border-radius: 6px;
-    font-size: 14px;
-    background-color: #e2effe;
-    color: #4a90e2;
-    outline: none;
+    box-sizing: border-box;
     transition: all 0.2s ease;
 }
 
-input[type="text"]#buscarMaterial:focus, 
-input[type="text"]#buscarServicio:focus {
+.buscador-container:has(input:focus),
+.buscador-servicios-container:has(input:focus) {
     background-color: #fff;
     border-color: #4a90e2;
     box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
+}
+
+.buscador-container i, 
+.buscador-servicios-container i {
+    color: #4a90e2;
+    margin-right: 10px;
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.buscador-container input, 
+.buscador-servicios-container input {
+    flex: 1;
+    background: transparent !important;
+    border: none !important;
+    outline: none !important;
+    padding: 10px 0 !important;
+    font-family: "Quicksand", sans-serif;
+    color: #4a90e2;
+    font-size: 14px;
+    width: 100%;
+}
+
+.buscador-container input:focus, 
+.buscador-servicios-container input:focus {
     color: #333;
 }
+
 
 input::placeholder {
     color: #4a90e2;
