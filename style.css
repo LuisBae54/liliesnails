@@ -76,6 +76,12 @@ section {
   margin-bottom: 20px;
 }
 
+.seccion-desplegable-materiales {
+  width: 100%;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
 .crear-servicio {
   background-color: #e3f2fd !important;
   border: 1px solid #bbdefb;
@@ -125,6 +131,45 @@ button {
   letter-spacing: 1px;
   padding: 12px 22px;
   border-radius: 25px;
+}
+
+button, 
+.tarjeta-material,
+input[type="submit"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#btn-desplegar-materiales {
+  width: 100%;
+  background-color: #e2effe;
+  color: #4a90e2;
+  border: 2px solid #d1e9ff;
+  border-radius: 10px;
+  padding: 10px 15px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#btn-desplegar-materiales:hover {
+  background-color: #cbdff7;
+}
+
+#icono-flecha {
+  transition: transform 0.3s ease;
+}
+
+#contenedor-checkboxes.oculto {
+  display: none !important;
+}
+
+.rotar-flecha {
+  transform: rotate(180deg);
 }
 
 .btn-guardar-servicio {
@@ -185,6 +230,31 @@ button[onclick*="eliminar"]:hover {
   background-color: #357abd;
 }
 
+.btn-cargar-mas {
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 15px auto;
+  background-color: transparent;
+  color: #4a90e2;
+  border: 2px dashed #d1e9ff;
+  border-radius: 20px;
+  padding: 8px 16px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.btn-cargar-mas:hover {
+  background-color: #e2effe;
+  border-style: solid;
+  border-color: #4a90e2;
+  transform: translateY(1px);
+}
+
 .btn-respaldo,
 .btn-importar {
   display: inline-flex;
@@ -213,6 +283,11 @@ button[onclick*="eliminar"]:hover {
 .btn-importar {
   background-color: #9b59b6;
   color: white;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  
+  outline: none !important;
+  user-select: none !important; 
 }
 
 .btn-respaldo:hover,
@@ -236,6 +311,72 @@ input:focus {
   border-color: #4a90e2;
 }
 
+.buscador-container input[type="text"]#buscarMaterial, 
+.buscador-servicios-container input[type="text"]#buscarServicio {
+    width: 100%;
+    padding: 8px 12px 8px 42px !important; /* El !important asegura que no lo pise la regla de arriba */
+    border: 1px solid #e2effe;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #e2effe;
+    color: #4a90e2;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.buscador-container input[type="text"]#buscarMaterial:focus, 
+.buscador-servicios-container input[type="text"]#buscarServicio:focus {
+    background-color: #fff;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
+    color: #333;
+}
+
+.buscador-container, .buscador-servicios-container {
+    position: relative;
+    margin: 15px 0;
+    width: 100%;
+    max-width: 350px;
+}
+
+.buscador-container i, .buscador-servicios-container i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4a90e2;
+    opacity: 0.8;
+    pointer-events: none;
+    font-size: 14px;
+}
+
+input[type="text"]#buscarMaterial, 
+input[type="text"]#buscarServicio {
+    width: 100%;
+    padding: 8px 12px 8px 42px;
+    border: 1px solid #e2effe;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #e2effe;
+    color: #4a90e2;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+input[type="text"]#buscarMaterial:focus, 
+input[type="text"]#buscarServicio:focus {
+    background-color: #fff;
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.2);
+    color: #333;
+}
+
+input::placeholder {
+    color: #4a90e2;
+    opacity: 0.6;
+    font-size: 0.9rem;
+}
+
 label {
   font-weight: 600;
   color: #555;
@@ -246,43 +387,68 @@ label {
 /*#region Checkboxes*/
 #contenedor-checkboxes {
   display: flex;
-  flex-wrap: wrap; /* Para que si hay muchos, se pongan en varias filas */
-  gap: 12px; /* Un poco más de espacio */
-  margin-bottom: 25px; /* Más espacio antes del botón */
+  flex-wrap: wrap;
+  gap: 8px; 
   margin-top: 15px;
+  margin-bottom: 25px;
+  max-height: 180px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 2px solid #d1e9ff;
+  border-radius: 12px;
+  background-color: #f4feff;
 }
 
-/*Tarjeta*/
 .tarjeta-material {
   background-color: white;
   border: 2px solid #d1e9ff;
   border-radius: 20px;
-  padding: 10px 18px;
+  padding: 8px 14px;
   cursor: pointer;
   color: #4a90e2;
-  transition: all 0.3s ease;
-  display: flex;
+  transition: all 0.2s ease;
+  display: inline-flex;
   align-items: center;
   font-weight: 500;
-  font-size: 0.95rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  margin: 0;
+
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-touch-callout: none !important;
+  
+  outline: none !important;
+  user-select: none !important; 
+}
+
+.tarjeta-material label {
+  cursor: pointer !important;
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  user-select: none;
 }
 
 .tarjeta-material input[type="checkbox"] {
   display: none;
+  pointer-events: none;
 }
 
 .tarjeta-material:has(input:checked) {
-  background-color: #4a90e2;
-  border-color: #4a90e2;
-  color: white;
+  background-color: #4a90e2 !important;
+  border-color: #4a90e2 !important;
+  color: white !important;
   box-shadow: 0 4px 8px rgba(74, 144, 226, 0.2);
+}
+
+.tarjeta-material:has(input:checked) label {
+  color: white !important;
 }
 
 .tarjeta-material:not(:has(input:checked)):hover {
   background-color: #f0f8ff;
   border-color: #bbdefb;
-  transform: translateY(-2px); /*Boton sube*/
+  transform: translateY(-2px);
 }
 /*#endregion*/
 
@@ -295,6 +461,48 @@ label {
   section {
     padding: 15px;
   }
+
+ #contenedor-checkboxes {
+    display: flex !important; /* Mantiene el comportamiento flex original */
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important; /* Alinea al inicio en el cel */
+    gap: 8px !important;
+    max-height: 150px !important; /* Un poco más chiquito en el cel para ahorrar espacio */
+  }
+
+  .tarjeta-material {
+    margin: 0 !important;
+    padding: 6px 8px !important;
+    font-size: 0.85rem !important;
+    display: flex;
+    align-items: center;
+  }
+
+.buscador-container, .buscador-servicios-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 12px 0 !important;
+        position: relative !important; /* Forza a que el contenedor mantenga la referencia física */
+        display: block !important;
+    }
+    
+    .buscador-container i, .buscador-servicios-container i {
+        position: absolute !important;
+        left: 15px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important; /* Centrado vertical exacto en móviles */
+        font-size: 16px !important; /* Un toque más grande para que se vea bien */
+        z-index: 10 !important; /* Asegura que quede por encima de todo */
+    }
+    
+    .buscador-container input[type="text"]#buscarMaterial, 
+    .buscador-servicios-container input[type="text"]#buscarServicio {
+        width: 100% !important;
+        display: block !important;
+        padding: 12px 12px 12px 45px !important; /* Más alto para el dedo, y 45px de espacio para la lupa */
+        font-size: 16px !important;
+        box-sizing: border-box !important; /* Evita que el padding extra estire el input fuera de la pantalla */
+    }
 
   .logo-tienda {
     justify-self: center;
@@ -316,20 +524,21 @@ label {
     min-height: 50px;
   }
 
-  .btn-editar,
-  .btn-borrar {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    margin: 0;
-    border: none;
-    box-sizing: border-box;
-  }
+.btn-clonar,
+.btn-editar,
+.btn-borrar {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  margin: 0;
+  border: none;
+  box-sizing: border-box;
+}
 
   .btn-editar i,
   .btn-borrar i {
@@ -385,25 +594,27 @@ label {
   table {
     display: table;
     width: 100%;
-    min-width: 650px !important;
+    min-width: 600px !important;
     font-size: 0.85rem;
-    border-spacing: 0; /* Elimina espacio entre celdas */
-    border-collapse: collapse; /* Une los bordes */
+    border-spacing: 0; 
+    border-collapse: collapse; 
     margin-top: 0 !important;
     margin: 0;
     padding: 0;
   }
 
   .contenedor-tabla {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
     border: none;
     background-color: #ffffff;
     border-radius: 12px;
     padding: 0;
     margin: 0;
+    box-sizing: border-box !important;
   }
 
   thead tr th {
